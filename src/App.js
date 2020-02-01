@@ -1,11 +1,24 @@
 // App.js
 // 2020-02-01
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
-import FileInput from './FileInput';
+import FileUpload from 'react-file-upload-mobile';
 import './App.css';
 
+
 function App() {
+  const [image, setImage] = useState();
+  const [imageName, setImageName] = useState();
+  const clearAttachment = () => {
+    setImage('');
+    setImageName('');
+  }
+  const onUpload = (file) => {
+    // Use API here
+  }
+  const preview = () => {
+    // Preview picture
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -13,7 +26,15 @@ function App() {
         <p>
           Upload a video to caption...
         </p>
-        <FileInput />
+        <FileUpload
+          fileURL={image}
+          fileName={imageName}
+          displayOnly={false}
+          preview={preview}
+          compressImg={0.8}
+          onFileDelete={clearAttachment}
+          onFileUpload={onUpload}
+        />
       </header>
     </div>
   );
