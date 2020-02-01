@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="description" content="Web site created using create-react-app" />
+		<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+		<!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,12 +21,62 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+		<title>React App</title>
+	</head>
+
+	<body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<div id="root"></div>
+		<script src="https://src.litix.io/core/2/mux.js"></script>
+		<script>
+			window.muxPlayerInitTime = Date.now();
+		</script>
+		<video
+			id="myVideo"
+			src="http://path/to/awesomeVideo.mp4"
+			controls
+			width="960"
+			height="400"
+		></video>
+
+		<script>
+			// Example of changing the source of a video element
+			// Should happen before emitting the videochange event
+			var myVideo = document.querySelector("#myVideo");
+			myVideo.src = "nextVideo.mp4";
+
+			// Initialize Mux Data monitoring
+			if (typeof mux !== "undefined") {
+				// Additional metadata under `data` can be used for HTML5, HLS.js, and Dash.js
+				mux.monitor("#myVideo", {
+					debug: false,
+					disableCookies: true,
+					respectDoNotTrack: false, // Track browsers even where Do Not Track is enabled
+					data: {
+						env_key: "2ccffeff-b74e-4486-b25a-7775b0591bc6", // required
+
+						// Site Metadata
+						viewer_user_id: "", // ex: '12345'
+						experiment_name: "", // ex: 'player_test_A'
+						sub_property_id: "", // ex: 'cus-1'
+
+						// Player Metadata
+						player_name: "", // ex: 'My Main Player'
+						player_version: "", // ex: '1.0.0'
+						player_init_time: "", // ex: 1451606400000
+
+						// Video Metadata (cleared with 'videochange' event)
+						video_id: "", // ex: 'abcd123'
+						video_title: "", // ex: 'My Great Video'
+						video_series: "", // ex: 'Weekly Great Videos'
+						video_duration: "", // in milliseconds, ex: 120000
+						video_stream_type: "", // 'live' or 'on-demand'
+						video_cdn: "" // ex: 'Fastly', 'Akamai'
+					}
+				});
+			}
+		</script>
+		<!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -39,5 +86,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+	</body>
 </html>
