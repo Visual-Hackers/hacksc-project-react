@@ -1,7 +1,9 @@
 // FileInput.js
 // 2020-02-01
 const Mux = require('@mux/mux-node');
-const { Video, Data } = new Mux();
+const accessToken = process.env.MUX_TOKEN_ID;
+const secret = process.env.MUX_TOKEN_SECRET;
+const { Video, Data } = new Mux(accessToken, secret);
 const fs = require('fs');
 const request = require('request');
 
